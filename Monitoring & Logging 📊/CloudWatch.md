@@ -114,10 +114,11 @@ CloudWatch is an essential tool for monitoring and logging in AWS, offering a ro
 - Archive old logs or metrics to **save costs**.
 
 ---
-# To See Logs Of EC2 Application 
+## To See Logs Of EC2 Application 
 we can make custom metric by using agent 
 Agent - gather info and give it to cloudwatch 
-![aws clodwatch](https://github.com/user-attachments/assets/aba850dd-d6fc-463f-b5ca-add509ae46e4)
+![aws clodwatch](https://github.com/user-attachments/assets/0f91782e-9c3e-45c7-8f08-439adfdd5b86)
+
 
 
 
