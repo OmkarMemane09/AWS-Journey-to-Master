@@ -54,6 +54,23 @@ AWS CloudWatch is a **serverless performance monitoring service** that monitors 
 
 ---
 
+![cloudprice](https://github.com/user-attachments/assets/8e1004da-f538-41c2-afc3-063098945ade)  
+
+--- 
+CloudWatch is an essential tool for monitoring and logging in AWS, offering a robust set of features to ensure the health and performance of your applications and infrastructure.
+
+
+
+```
+ wget https://amazoncloudwatch-agent.s3.amazonaws.com/amazon_linux/amd64/latest/amazon-cloudwatch-agent.rpm
+   
+ sudo rpm -U ./amazon-cloudwatch-agent.rpm
+ sudo /opt/aws/amazon-cloudwatch-agent/bin/amazon-cloudwatch-agent-config-wizard
+ sudo amazon-cloudwatch-agent-ctl -a start -c file:/opt/aws/amazon-cloudwatch-agent/etc/amazon-cloudwatch-agent.json -s
+
+ ```
+
+
 ## Steps to Set Up AWS CloudWatch
 
 ### Step 1: Sign in to AWS Console
@@ -97,6 +114,10 @@ AWS CloudWatch is a **serverless performance monitoring service** that monitors 
 - Archive old logs or metrics to **save costs**.
 
 ---
+# To See Logs Of EC2 Application 
+we can make custom metric by using agent 
+Agent - gather info and give it to cloudwatch 
+![aws clodwatch](https://github.com/user-attachments/assets/aba850dd-d6fc-463f-b5ca-add509ae46e4)
 
-![cloudprice](https://github.com/user-attachments/assets/8e1004da-f538-41c2-afc3-063098945ade)
+
 
