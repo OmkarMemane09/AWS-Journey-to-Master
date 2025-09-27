@@ -1,0 +1,167 @@
+body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  margin: 0;
+  padding: 0;
+  background: url("../assets/bgimg.png") no-repeat center center;
+  background-size: cover;
+  font-family: Arial, sans-serif;
+  overflow-x: hidden;
+}
+
+.registration-container {
+  padding: 20px;
+  width: 100%;
+  max-width: 850px;
+  text-align: center;
+  background: rgba(0, 0, 0, 0.7);
+  border: 2px solid rgba(255, 255, 255, 0.1);
+  border-radius: 10px;
+  backdrop-filter: blur(7px);
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
+}
+.heading {
+  color: #ff8000;
+  font-size: 24px;
+  margin-top: 10px;
+}
+
+.form-input {
+  width: calc(100% - 20px);
+  max-width: 100%;
+  padding: 10px;
+  margin-bottom: 15px;
+  font-size: 14px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  background-color: black;
+  color: white;
+}
+
+.submit-button {
+  width: 100%;
+  padding: 12px;
+  background-color: #ff8000;
+  color: black;
+  border: none;
+  border-radius: 4px;
+  font-size: 20px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.submit-button:hover {
+  background-color: #fc6600;
+}
+
+.user-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+  font-size: 14px;
+  overflow-x: auto;
+}
+
+.user-table th,
+.user-table td {
+  padding: 10px;
+  border: 1px solid #ddd;
+  text-align: left;
+  background-color: #2c2c2c;
+  color: white;
+}
+
+.user-table th {
+  background-color: #000000;
+}
+
+.user-table .delete-button {
+  padding: 6px 12px;
+  background-color: #ff4c4c;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.user-table .delete-button:hover {
+  background-color: #e63939;
+}
+
+@media (max-width: 768px) {
+  .registration-container {
+    padding: 15px;
+    width: 95%;
+  }
+
+  .form-input {
+    font-size: 12px;
+    padding: 8px;
+  }
+
+  .submit-button {
+    padding: 10px;
+    font-size: 16px;
+  }
+
+  .user-table {
+    font-size: 12px;
+  }
+
+  .user-table th,
+  .user-table td {
+    padding: 8px;
+  }
+}
+
+@media (max-width: 480px) {
+  .registration-container {
+    padding: 10px;
+    margin: 5px;
+    width: 85%;
+  }
+
+  .form-input {
+    font-size: 12px;
+  }
+
+  .submit-button {
+    font-size: 14px;
+  }
+
+  .user-table {
+    border: 0;
+  }
+
+  .user-table thead {
+    display: none;
+  }
+
+  .user-table tr {
+    display: block;
+    margin-bottom: 10px;
+  }
+
+  .user-table td {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 5px;
+    border-bottom: 1px solid #ddd;
+  }
+
+  .user-table td::before {
+    content: attr(data-label);
+    font-weight: bold;
+    color: #aaa;
+    text-transform: capitalize;
+  }
+
+  .delete-button {
+    width: 100%;
+  }
+}
