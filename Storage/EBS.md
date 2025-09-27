@@ -80,27 +80,75 @@ xvdf    202:80   0  20G  0 disk     # <- Your new volume
 ## Mounting the Volume
 
 ### Create Mount Directory
-```bash
 sudo mkdir /mnt/ebs-volume
 
 # Mount the Volume
 sudo mount /dev/xvdf1 /mnt/ebs-volume
 
-#Verify the Volume is Mounted
+##### Verify the Volume is Mounted
 df -h
 
-#Persisting the Mount (Optional)
-To make the mount persistent across reboots:
-Open the fstab File
+##### Persisting the Mount (Optional)
+##### To make the mount persistent across reboots:
+
+##### Open the fstab File
 sudo nano /etc/fstab
 
-#Add the Following Entry
+##### Add the Following Entry
 /dev/xvdf1   /mnt/ebs-volume   ext4   defaults,nofail   0   2
 
-#Save the File and Exit
-Press Ctrl + X
-Press Y to confirm save
-Press Enter to confirm filename
+##### Save the File and Exit
+  Press Ctrl + X
+  Press Y to confirm save
+  Press Enter to confirm filename
 
-#Test the Configuration
+##### Test the Configuration
 sudo mount -a
+
+# EBS Volume Backup Using Snapshots
+
+## Manual Snapshot Creation
+
+### Step 1: Navigate to EC2 Dashboard
+- Go to AWS Management Console
+- Select **Services → Compute → EC2**
+
+### Step 2: Access Volumes Section
+- In left navigation menu: **Elastic Block Store → Volumes**
+
+### Step 3: Create Snapshot
+- Select the volume you want to back up
+- Click **Actions → Create Snapshot**
+- Provide snapshot details:
+  - **Description**: Enter meaningful description (e.g., "Daily Backup - Production DB")
+  - **Tags**: Add tags for better organization (optional)
+
+### Step 4: Create Snapshot
+- Click **Create Snapshot**
+- Snapshot creation will start immediately
+
+### Step 5: View Snapshots
+- Navigate to: **Elastic Block Store → Snapshots**
+- Monitor snapshot progress (status will change from "pending" to "completed")
+
+## Automating Snapshots Using Snapshot Policies
+
+### Create a Snapshot Lifecycle Policy
+
+#### Step 1: Access Data Lifecycle Manager
+- Go to AWS Management Console
+- Navigate to: **Services → EC2 → Elastic Block Store → Lifecycle Manager**
+
+#### Step 2: Create Lifecycle Policy
+- Click **Create lifecycle policy**
+- Select **EBS Snapshot policy**
+- Click **Next**
+
+#### Step 3: Configure Policy Details
+```yaml
+Policy Type: EBS snapshot policy
+Description: [Enter policy description]
+Resource Type: Volume
+Target resources: Add tags to identify volumes
+  - Tag: Environment:Production
+  - Tag: Backup:Daily
