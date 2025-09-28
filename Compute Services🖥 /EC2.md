@@ -285,4 +285,96 @@ sudo systemctl restart httpd
 Verify: Access via public IP in web browser
 
 ````
+# EC2 Purchasing Options
 
+## Overview
+Amazon EC2 offers multiple purchasing options to optimize costs based on workload requirements and budget constraints.
+
+## Available Options
+
+### 🟢 On-Demand Instances
+- **Pricing**: Pay for what you use (per second/hour)
+- **Commitment**: No upfront payment, no long-term commitment
+- **Cost**: Highest hourly rate
+- **Best For**: Short-term, unpredictable workloads, auto-scaling
+- **Billing**: 
+  - Linux/Windows: Per second after first minute
+  - Other OS: Per hour
+
+### 🔵 Reserved Instances
+- **Discount**: Up to 72% vs On-Demand
+- **Term**: 1 year (+discount) or 3 years (+++discount)
+- **Payment**: No upfront/Partial upfront/All upfront
+- **Scope**: Regional or Zonal
+- **Best For**: Steady-state applications (databases, long-running services)
+
+#### Convertible Reserved Instances
+- **Flexibility**: Change instance type, family, OS, scope, tenancy
+- **Discount**: Up to 66% vs On-Demand
+
+### 🟡 Spot Instances
+- **Discount**: Up to 90% vs On-Demand
+- **Risk**: Can be terminated if spot price > your max price
+- **Best For**: Fault-tolerant workloads (batch jobs, data processing)
+- **Avoid For**: Critical applications, databases
+
+### 🔴 Dedicated Hosts
+- **Type**: Physical server dedicated to you
+- **Control**: Full control over instance placement
+- **Cost**: Most expensive option
+- **Best For**: Server-bound licenses, regulatory compliance
+- **Billing**: Per host
+
+### 🟠 Dedicated Instances
+- **Type**: Virtual instances on dedicated hardware
+- **Isolation**: Single-tenant hardware
+- **Cost**: Additional $2/hour per region
+- **Visibility**: Less control than dedicated hosts
+
+### 🟣 Capacity Reservations
+- **Purpose**: Reserve capacity in specific AZ
+- **Commitment**: No term, cancel anytime
+- **Discount**: None (pay On-Demand rates)
+- **Best For**: Short-term, AZ-specific critical workloads
+
+## Selection Guide
+
+### 🏨 Resort Analogy
+| Option | Resort Equivalent |
+|--------|------------------|
+| On-Demand | Pay full price, stay anytime |
+| Reserved | Book long stay, get discount |
+| Spot | Bid for empty rooms, risk eviction |
+| Dedicated Host | Rent entire building |
+| Capacity Reservation | Reserve room, pay even if empty |
+
+### 📊 Selection Strategy
+1. **Analyze Workload Patterns**
+   - Steady vs variable usage
+   - Predictable vs unpredictable demand
+
+2. **Consider Budget**
+   - Upfront vs ongoing costs
+   - Total cost of ownership
+
+3. **Evaluate Flexibility Needs**
+   - Instance type changes
+   - Scaling requirements
+
+4. **Assess Compliance**
+   - Licensing requirements
+   - Regulatory constraints
+
+5. **Mix & Match**
+   - Combine options for optimal cost-performance
+   - Example: Reserved for baseline + Spot for peaks
+
+## Quick Reference Table
+
+| Option | Discount | Commitment | Best Use Case |
+|--------|----------|------------|---------------|
+| On-Demand | 0% | None | Unpredictable workloads |
+| Reserved | Up to 72% | 1-3 years | Steady-state apps |
+| Spot | Up to 90% | None | Fault-tolerant jobs |
+| Dedicated Host | 0% | Optional | Compliance/licensing |
+| Capacity Reserve | 0% | None | Critical AZ workloads |
