@@ -329,7 +329,7 @@ Indicates domain ownership and DNS refresh rules.
 
 <img width="853" height="269" alt="image" src="https://github.com/user-attachments/assets/8d4f2eae-36d6-4fdf-9918-e3a3513a5da2" />
 
-
+---
 # Day2
 
 ## 🚦 AWS Route 53 Routing Policies  
