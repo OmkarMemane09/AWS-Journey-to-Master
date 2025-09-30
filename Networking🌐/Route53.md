@@ -20,18 +20,15 @@ Amazon Route 53 is a **highly available and scalable Domain Name System (DNS) we
 ## 1️⃣ Domain Registration  
 - Register a domain name (e.g., `example.com`).  
 - Used as the identity of your website or application.  
-- Docs: [How domain registration works](#) | [Registering a domain](#)  
 ---
 ## 2️⃣ DNS Routing  
 - Direct internet traffic to your resources (website, app, or email).  
 - Example: User enters `example.com` → Route 53 connects browser to your server.  
 - Supports routing email to **Amazon WorkMail**.  
-- Docs: [Configuring DNS with Route 53](#)  
 ---
 ## 3️⃣ Health Checking  
 - Monitors resources (e.g., web servers) for availability and functionality.  
 - Can send alerts and reroute traffic away from unhealthy resources.  
-- Docs: [Creating health checks](#)
 ---
 # 🌐 Amazon Route 53 Terminologies  
 
