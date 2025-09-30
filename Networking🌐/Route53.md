@@ -98,7 +98,42 @@ Defines **how Route 53 responds to queries**:
 - Uses **domain lists + firewall rules**.  
 
 ---
+# 🌐 Domain and Endpoint Mapping in Route 53  
 
+In AWS, a **domain name** registered in Route 53 can be mapped to different **endpoints** where the actual application or website is hosted.  
+An **endpoint** can be:  
+- An **Amazon S3 bucket** (static website hosting)  
+- An **Amazon EC2 instance** (web server with public IP/DNS)  
+- An **Elastic Load Balancer (ALB/NLB/CLB)** distributing traffic  
+- An **Amazon CloudFront distribution** (CDN endpoint)  
+- An **API Gateway endpoint**  
+
+---
+
+## 🔧 How it Works  
+1. You create a **DNS record (A, CNAME, or Alias)** in Route 53.  
+2. That record maps the **domain name** (e.g., `www.example.com`) to the **endpoint** (IP or AWS service URL).  
+3. When a user enters the domain name in the browser:  
+   - Route 53 resolves the domain to the correct **endpoint IP/URL**.  
+   - The request is sent to the endpoint (S3, EC2, ALB, etc.).  
+   - The endpoint serves the website or application.  
+
+---
+
+## 📌 Example Scenarios  
+
+### 1️⃣ S3 Bucket Website  
+www.example.com
+ → s3-website-us-east-1.amazonaws.com
+
+Static website hosted in an **S3 bucket**.  
+
+### 2️⃣ EC2 Instance  
+www.example.com
+ → 203.0.113.25
+Domain points to the **public IP** of an EC2 instance running a web server.
+
+---
 ### Domain Name Strucher
 
 <img width="542" height="260" alt="image" src="https://github.com/user-attachments/assets/83671117-6864-41ec-b8e9-9a6d7344dd44" />
@@ -295,4 +330,91 @@ Indicates domain ownership and DNS refresh rules.
 <img width="853" height="269" alt="image" src="https://github.com/user-attachments/assets/8d4f2eae-36d6-4fdf-9918-e3a3513a5da2" />
 
 
+# Day2
 
+## 🚦 AWS Route 53 Routing Policies  
+
+Amazon Route 53 provides different **routing policies** to control how DNS queries are answered.  
+Each policy defines **how Route 53 selects an endpoint (IP, S3, ALB, EC2, CloudFront, etc.)** when a user requests a domain.
+
+---
+
+### 1️⃣ Simple Routing Policy 
+
+<img width="702" height="416" alt="image" src="https://github.com/user-attachments/assets/382197b5-f741-4518-b6c3-74856b96270a" />
+
+Allows you to associate the single resourse record set with a route 53 domain name. This is useful when you have a single resource that performs a given function for your domain,such as your web server
+- **Use Case:** When you want to route traffic to a **single resource**.  
+- **Working:** One record with one value (IP or domain). No advanced logic.  
+- **Example:**  
+www.example.com → 203.0.113.25
+Every request goes to **one EC2 instance**.
+
+---
+
+## 2️⃣ Weighted Routing Policy  
+
+<img width="961" height="342" alt="image" src="https://github.com/user-attachments/assets/49ce7ef4-c070-42db-9b26-46e53650a24c" />
+Allows you to associate multiple resource record set with a route 53 domain name and specify the weight for each record set. Route 53 uses the weight to determine how to distribute traffic among the record sets
+
+- **Use Case:** When you want to distribute traffic across multiple resources with **custom percentages**.  
+- **Working:** Assign a weight (number) to each record; Route 53 uses the weights to decide the probability of sending traffic.
+-  
+- **Example:**  
+www.example.com → EC2-1 (Weight 70)
+www.example.com → EC2-2 (Weight 30)
+70% of traffic → EC2-1, 30% → EC2-2.  
+- **Benefit:** Useful for **A/B testing, blue-green deployments**.
+
+---
+
+## 3️⃣ Latency Routing Policy  
+
+<img width="870" height="221" alt="image" src="https://github.com/user-attachments/assets/6ca2a408-d0e3-40b6-a905-a193a249ae24" />
+
+ Allows you to route traffic based on lowest network latency for your end user. You can create latency records for multiple resources and route 53 will route the traffic to the resources with the lowest latency fot the end user
+ 
+- **Use Case:** When you want users to connect to the resource with the **lowest latency**.  
+- **Working:** Route 53 looks at the user’s geographic location and routes to the AWS region with the fastest response.
+-   
+- **Example:**  
+- User from India → routed to **Mumbai region EC2**.  
+- User from US → routed to **Ohio region EC2**.  
+- **Benefit:** Improves user experience with **low latency connections**.
+
+---
+
+## 4️⃣ Failover Routing Policy  
+
+<img width="590" height="480" alt="image" src="https://github.com/user-attachments/assets/82201f1e-1468-4783-bb0b-aa850c98f9f0" />
+
+Allows you to configure active-passive failover configuration. You can create a primary school record set that recieves all traffic under normal condition and secondary record set that recieves the traffic only when primary set is unhealthy  
+
+- **Use Case:** For **high availability** and **disaster recovery**.  
+- **Working:** You define a **Primary** resource and a **Secondary (backup)** resource.  
+- Route 53 health checks monitor the primary.  
+- If primary fails, traffic is routed to secondary.
+- 
+- **Example:**  
+Primary → ALB in us-east-1
+Secondary → S3 static website (backup)
+If the ALB goes down, Route 53 sends traffic to S3.
+
+---
+
+## 5️⃣ Geolocation Routing Policy  
+<img width="752" height="341" alt="image" src="https://github.com/user-attachments/assets/3029ae10-e9e4-4985-910b-740fd77f7a2b" />
+
+Allows you to route traffic based on the geographic location of your users. You can create geolocation records for different geographic location and specify the resource to which traffic should be routed for each location
+
+- **Use Case:** When you want to serve traffic **based on the geographic location of users**.  
+- **Working:** DNS answers vary by user’s **country/continent/IP range**.
+- 
+- **Example:**  
+- User from **US** → routed to US servers.  
+- User from **Europe** → routed to EU servers.  
+- **Benefit:**  
+- Show localized content.  
+- Meet compliance requirements.  
+
+---
