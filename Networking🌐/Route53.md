@@ -415,3 +415,98 @@ Allows you to route traffic based on the geographic location of your users. You 
 - Meet compliance requirements.  
 
 ---
+# 🌍 AWS Route 53 – Hosted Zones, Records, and Traffic Policies
+
+## 1. Hosted Zone
+A **Hosted Zone** is a container that stores DNS records for your domain.
+
+### Steps to Create a Hosted Zone:
+1. Go to **Route 53 Console** → **Hosted Zones** → **Create Hosted Zone**.
+2. Enter the **Domain Name** (e.g., `example.com`).
+3. Select **Public Hosted Zone** (for internet-facing domains).
+   - **Private Hosted Zone** is used for internal routing within a VPC.
+4. Click **Create** → AWS generates **NS (Name Server)** and **SOA (Start of Authority)** records automatically.
+5. Update the **domain registrar (GoDaddy, Namecheap, etc.)** with the provided NS records.
+
+---
+
+## 2. Records
+Records define how traffic is routed for your domain/subdomain.
+
+### Common Record Types:
+- **A Record** → Maps domain to IPv4 address.  
+- **AAAA Record** → Maps domain to IPv6 address.  
+- **CNAME Record** → Maps one domain to another (e.g., `www.example.com` → `example.com`).  
+- **MX Record** → Mail server routing.  
+- **TXT Record** → Verification, security (SPF, DKIM).  
+- **Alias Record (AWS-specific)** → Maps directly to AWS resources (S3, ELB, CloudFront, API Gateway).
+
+### Steps to Create a Record:
+1. Open your **Hosted Zone** → **Create Record**.
+2. **Record Name**: e.g., `www` → results in `www.example.com`.
+3. **Value**: Provide IP address or AWS resource endpoint.
+4. **Routing Policy**: Choose how Route 53 routes traffic (simple, weighted, latency, etc.).
+5. **TTL (Time to Live)**: Duration DNS resolvers cache the record (default 300s).
+
+---
+
+## 3. Routing Policies
+Routing policies control how Route 53 responds to queries.
+
+- **Simple Routing** → Maps a name to one resource.  
+- **Weighted Routing** → Distributes traffic across multiple resources based on percentage.  
+- **Latency-Based Routing** → Routes users to the lowest latency AWS region.  
+- **Geolocation Routing** → Routes based on user’s location (continent, country).  
+- **Geo-Proximity Routing** → Routes traffic based on proximity + optional bias (requires traffic flow).  
+- **Failover Routing** → Active-passive setup (primary + secondary).  
+- **Multi-Value Answer Routing** → Returns multiple healthy IPs.
+
+---
+
+## 4. Traffic Policies (Traffic Flow)
+A **Traffic Policy** allows advanced DNS routing by combining multiple rules.
+
+### Steps to Create a Traffic Policy:
+1. Open **Traffic Policies** → **Create Traffic Policy**.
+2. Provide:
+   - **Policy Name & Version**.
+   - **Hosted Zone**.
+   - **DNS Name**: e.g., `www.example.com`.
+3. Add rules like **Latency-based + Failover**, or **Weighted + Geolocation**.
+4. Apply the policy to the hosted zone.
+5. If you need another policy, use a different DNS name (e.g., `http.example.com`).
+
+---
+
+## 5. How Route 53 Works
+1. A user enters a domain (e.g., `www.example.com`) in the browser.
+2. The request goes to a **DNS Resolver** (usually ISP).
+3. Resolver queries the **Root DNS → TLD DNS → Route 53 (Authoritative DNS)**.
+4. Route 53 checks the **Hosted Zone** records.
+5. Based on the **Routing Policy / Traffic Policy**, it returns:
+   - An IP address, or
+   - An AWS resource endpoint (ELB, S3, CloudFront).
+6. The browser connects to the returned IP and loads the website.
+
+---
+
+## 6. Example Scenario
+- Domain: `example.com`
+- Hosted Zone: Public
+- Records:
+  - `A` record → `example.com` → EC2 Public IP
+  - `CNAME` record → `www.example.com` → `example.com`
+  - `Alias` record → `cdn.example.com` → CloudFront Distribution
+- Routing Policy:
+  - **Weighted** → 70% traffic to EC2-1, 30% to EC2-2
+- Traffic Policy:
+  - **Latency-based + Failover** for global high availability
+
+---
+
+✅ **Key Takeaways:**
+- Hosted Zone = Container for records.
+- Records = DNS mappings (A, CNAME, Alias, etc.).
+- Routing Policies = Decide how queries are answered.
+- Traffic Policies = Advanced combinations for global traffic management.
+- Route 53 integrates deeply with AWS resources (EC2, S3, ELB, CloudFront).
