@@ -44,7 +44,56 @@ It works by caching copies of content closer to the end users at **Edge Location
 - **Field-Level Encryption**: Protect sensitive data before it hits your backend
 
 ---
+## 2. CloudFront + S3 Integration (Hosting Static Website Frontend)
 
+### Steps:
+1. **Create an S3 Bucket**
+   - Name: `my-frontend-bucket`.
+   - Disable **Block Public Access** (if hosting public site).
+   - Enable **Static Website Hosting** in S3 bucket properties.
+   - Upload your frontend files (HTML, CSS, JS).
+
+2. **Set Bucket Policy**
+   - Allow public read access for objects (if directly accessible).
+   - Example policy:
+     ```json
+     {
+       "Version": "2012-10-17",
+       "Statement": [
+         {
+           "Effect": "Allow",
+           "Principal": "*",
+           "Action": "s3:GetObject",
+           "Resource": "arn:aws:s3:::my-frontend-bucket/*"
+         }
+       ]
+     }
+     ```
+
+3. **Create a CloudFront Distribution**
+   - Origin Domain → select your **S3 bucket**.
+   - Restrict bucket access:
+     - Create an **Origin Access Control (OAC)**.
+     - Update bucket policy to allow access only via CloudFront.
+   - Set Default Root Object → `index.html`.
+   - Enable HTTPS using **AWS Certificate Manager (ACM)** for custom domains.
+
+4. **Connect Domain (Optional)**
+   - In **Route 53**, create an **Alias A record**:
+     - `www.example.com → CloudFront Distribution`.
+   - Ensures users can access the site using your domain name.
+
+---
+
+## 3. How it Works
+- User requests `www.example.com`.
+- DNS (via Route 53) resolves to **CloudFront distribution**.
+- CloudFront checks nearest edge location cache:
+  - If content cached → returns immediately.
+  - If not cached → fetches from **S3 bucket** (origin), caches it, and returns response.
+- Future requests are served from cache → **faster performance**.
+
+---
 ## 🚀 Applications / Use Cases
 
 | Use Case                     | Description                                                                 |
