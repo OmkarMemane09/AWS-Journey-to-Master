@@ -44,7 +44,7 @@ It works by caching copies of content closer to the end users at **Edge Location
 - **Field-Level Encryption**: Protect sensitive data before it hits your backend
 
 ---
-## 2. CloudFront + S3 Integration (Hosting Static Website Frontend)
+## CloudFront + S3 Integration (Hosting Static Website Frontend)
 
 ### Steps:
 1. **Create an S3 Bucket**
