@@ -6,25 +6,26 @@ It includes my notes, hands-on practice, and project experiments.
 ---
 
 ## 📖 Table of Contents
-1. [Cloud Computing Basics](#cloud-computing-basics)  
-2. [AWS Cloud Architecture](#aws-cloud-architecture)  
-3. [Storage Services](#storage-services)  
+1. Cloud Computing Basics 
+2. AWS Cloud Architecture
+3. Storage Services
    - S3 (Simple Storage Service)  
    - EBS (Elastic Block Store)  
    - EFS (Elastic File System)  
-4. [Compute Services](#compute-services)  
+4. Compute Services
    - EC2 (Elastic Compute Cloud)  
    - ELB (Elastic Load Balancing)  
    - Auto Scaling  
-5. [Networking](#networking)  
+5. Networking
    - VPC (Virtual Private Cloud)  
    - Subnets, Route Tables, Internet Gateway  
    - NAT Gateway  
    - CDN (CloudFront)  
    - Route 53  
-6. [Monitoring & Logging](#monitoring--logging)  
-   - CloudWatch  
-7. [Serverless Computing](#serverless-computing)  
+6. Monitoring & Logging 
+   - CloudWatch
+   - SNS
+7. Serverless Computing
    - AWS Lambda  
 8. [Databases](#databases)  
    - RDS (Relational Database Service)  
