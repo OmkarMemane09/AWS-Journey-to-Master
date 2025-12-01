@@ -71,12 +71,12 @@ ssh -i "your-key.pem" ec2-user@your-instance-ip
 lsblk
 ```
 ### Expected Output
-
+```
 NAME    MAJ:MIN RM SIZE RO TYPE MOUNTPOINT
 xvda    202:0    0   8G  0 disk 
 └─xvda1 202:1    0   8G  0 part /
 xvdf    202:80   0  20G  0 disk     # <- Your new volume
-
+```
 
 
 ## Mounting the Volume
