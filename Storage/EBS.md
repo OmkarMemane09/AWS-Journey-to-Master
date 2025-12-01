@@ -62,13 +62,15 @@ Amazon Elastic Block Store (Amazon EBS) provides block-level storage volumes for
 
 ### Step 2: Verify Volume Attachment
 
-#### SSH into your EC2 instance
+### SSH into your EC2 instance
+```bash
 ssh -i "your-key.pem" ec2-user@your-instance-ip
-
-##### List block devices to confirm volume attachment
+```
+### List block devices to confirm volume attachment
+```bash
 lsblk
-
-##### Expected Output
+```
+### Expected Output
 
 NAME    MAJ:MIN RM SIZE RO TYPE MOUNTPOINT
 xvda    202:0    0   8G  0 disk 
@@ -80,29 +82,34 @@ xvdf    202:80   0  20G  0 disk     # <- Your new volume
 ## Mounting the Volume
 
 ### Create Mount Directory
+```bash
 sudo mkdir /mnt/ebs-volume
-
-# Mount the Volume
+```
+### Mount the Volume
+```bash
 sudo mount /dev/xvdf1 /mnt/ebs-volume
-
-##### Verify the Volume is Mounted
+```
+### Verify the Volume is Mounted
+```bash
 df -h
+```
+### Persisting the Mount (Optional)
+### To make the mount persistent across reboots:
 
-##### Persisting the Mount (Optional)
-##### To make the mount persistent across reboots:
-
-##### Open the fstab File
+### Open the fstab File
+```bash
 sudo nano /etc/fstab
-
-##### Add the Following Entry
+```
+### Add the Following Entry
+```bash
 /dev/xvdf1   /mnt/ebs-volume   ext4   defaults,nofail   0   2
-
-##### Save the File and Exit
+```
+### Save the File and Exit
   Press Ctrl + X
   Press Y to confirm save
   Press Enter to confirm filename
 
-##### Test the Configuration
+### Test the Configuration
 sudo mount -a
 
 # EBS Volume Backup Using Snapshots
