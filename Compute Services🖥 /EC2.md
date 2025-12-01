@@ -104,7 +104,7 @@ Security Groups act as virtual firewalls that control inbound and outbound traff
 6. Save the rules
 
 ## Interview Question 
-#### Difference between Security Grou and NACL 
+#### Difference between Security Group and NACL 
 
 | Feature | Security Groups | Network ACLs (NACLs) |
 |---------|-----------------|---------------------|
