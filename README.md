@@ -27,7 +27,7 @@ It includes my notes, hands-on practice, and project experiments.
    - SNS
 7. Serverless Computing
    - AWS Lambda  
-8. [Databases](#databases)  
+8. [Databases] 
    - RDS (Relational Database Service)  
    - MongoDB on AWS  
 
